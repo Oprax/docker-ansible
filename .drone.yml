@@ -1,0 +1,21 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: ansible stable
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: registry.oprax.fr/ansible
+    registry: registry.oprax.fr
+    tags:
+      - stable
+      - latest
+    dockerfile: Dockerfile
+  when:
+    branch:
+      - master
